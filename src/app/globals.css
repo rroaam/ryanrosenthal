@@ -60,9 +60,6 @@ body {
   background: var(--white);
   color: var(--black);
   font-family: var(--font-helvetica);
-  overflow: hidden;
-  height: 100vh;
-  height: 100dvh;
 }
 
 /* Hide scrollbar */

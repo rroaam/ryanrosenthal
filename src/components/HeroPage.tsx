@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import CustomCursor from "./CustomCursor";
+import Navigation from "./Navigation";
 
 // ─── Animation Variants ─────────────────────────────────────────────
 
@@ -22,18 +23,6 @@ const letterVariants = {
 
 const fadeUpVariants = {
   hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: EASE_OUT_CUBIC,
-    },
-  },
-};
-
-const navVariants = {
-  hidden: { y: -20, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
@@ -124,81 +113,6 @@ function Subtitle() {
   );
 }
 
-// ─── Navigation ─────────────────────────────────────────────────────
-
-function Navigation() {
-  const nameAnimDuration = NAME.length * 0.06 + 0.6;
-
-  return (
-    <motion.nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-5 sm:px-10 sm:py-7"
-      style={{ fontFamily: "var(--font-helvetica)" }}
-      variants={navVariants}
-      initial="hidden"
-      animate="visible"
-      transition={{
-        delay: nameAnimDuration,
-        duration: 0.8,
-        ease: EASE_OUT_CUBIC,
-      }}
-    >
-      {/* Left: name */}
-      <div
-        className="text-[11px] sm:text-xs tracking-[0.08em] uppercase font-medium whitespace-nowrap"
-        style={{ color: "var(--black)" }}
-      >
-        Ryan Rosenthal
-        <sup className="text-[0.55em] relative -top-[0.4em] ml-[0.5px]">
-          &reg;
-        </sup>
-      </div>
-
-      {/* Center: descriptor */}
-      <div
-        className="hidden md:block text-[11px] tracking-[0.12em] uppercase font-light text-center"
-        style={{ color: "rgba(33, 31, 31, 0.35)" }}
-      >
-        AI{" "}
-        <span className="mx-1" style={{ color: "rgba(33, 31, 31, 0.18)" }}>
-          //
-        </span>{" "}
-        Design{" "}
-        <span className="mx-1" style={{ color: "rgba(33, 31, 31, 0.18)" }}>
-          //
-        </span>{" "}
-        Brand{" "}
-        <span className="mx-1" style={{ color: "rgba(33, 31, 31, 0.18)" }}>
-          //
-        </span>{" "}
-        Product
-        <span className="mx-4" style={{ color: "rgba(33, 31, 31, 0.15)" }}>
-          |
-        </span>
-        <span style={{ color: "rgba(33, 31, 31, 0.3)" }}>
-          Los Angeles, CA
-        </span>
-      </div>
-
-      {/* Right: Say Hello */}
-      <a
-        href="mailto:ryan@ryanrosenthal.com"
-        className="group relative text-[11px] sm:text-xs tracking-[0.08em] uppercase font-medium"
-        style={{ color: "var(--black)" }}
-      >
-        Say Hello
-        <span
-          className="absolute left-0 -bottom-[2px] h-[1px] w-full origin-left scale-x-100 transition-transform duration-300 ease-out group-hover:scale-x-0"
-          style={{ background: "var(--black)" }}
-        />
-        <span
-          className="absolute left-0 -bottom-[2px] h-[1px] w-full origin-right scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
-          style={{ background: "var(--accent)" }}
-        />
-      </a>
-    </motion.nav>
-  );
-}
-
 // ─── Bottom Pill ────────────────────────────────────────────────────
 
 function BottomPill() {
@@ -227,7 +141,6 @@ function BottomPill() {
           boxShadow: "0 2px 20px rgba(33, 31, 31, 0.04)",
         }}
       >
-        {/* RR® */}
         <span
           className="text-lg sm:text-xl tracking-tight mr-4 select-none"
           style={{
@@ -243,9 +156,8 @@ function BottomPill() {
           </sup>
         </span>
 
-        {/* Button */}
         <a
-          href="mailto:ryan@ryanrosenthal.com"
+          href="/book"
           className="inline-flex items-center rounded-full px-5 py-2.5 sm:px-6 sm:py-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
           style={{
             background: "var(--accent)",
@@ -273,6 +185,8 @@ function BottomPill() {
 // ─── Hero Page ──────────────────────────────────────────────────────
 
 export default function HeroPage() {
+  const navDelay = NAME.length * 0.06 + 0.6;
+
   return (
     <>
       <CustomCursor />
@@ -280,9 +194,8 @@ export default function HeroPage() {
         className="relative h-screen h-[100dvh] w-full overflow-hidden"
         style={{ background: "var(--white)" }}
       >
-        <Navigation />
+        <Navigation delay={navDelay} />
 
-        {/* Center: Name + Subtitle */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <AnimatedName />
           <Subtitle />
