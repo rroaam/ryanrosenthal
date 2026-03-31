@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
-import { Bebas_Neue } from "next/font/google";
 import "./globals.css";
-
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas-neue",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Ryan Rosenthal — A.I. x Creative Director",
@@ -35,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bebasNeue.variable} h-full antialiased`}>
+    <html lang="en" className="h-full antialiased">
       <body className="h-full">{children}</body>
     </html>
   );

@@ -1,21 +1,63 @@
 @import "tailwindcss";
 
+/* ─── Helvetica Neue LT Pro ──────────────────────────────────────── */
+
+@font-face {
+  font-family: "Helvetica Neue LT Pro";
+  src: url("/fonts/HelveticaNeueLTPro-Lt.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Pro";
+  src: url("/fonts/HelveticaNeueLTPro-Roman.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Pro";
+  src: url("/fonts/HelveticaNeueLTPro-Md.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Pro";
+  src: url("/fonts/HelveticaNeueLTPro-Bd.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Helvetica Neue LT Pro";
+  src: url("/fonts/HelveticaNeueLTPro-Blk.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ─── Theme ──────────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
+  --black: #211F1F;
+  --white: #E6E6E6;
   --accent: #E5000A;
-  --pill-bg: #F0F0F0;
-  --pill-border: #E0E0E0;
+  --pill-bg: rgba(33, 31, 31, 0.06);
+  --pill-border: rgba(33, 31, 31, 0.12);
+  --font-helvetica: "Helvetica Neue LT Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-brand-black: var(--black);
+  --color-brand-white: var(--white);
   --color-accent: var(--accent);
-  --color-pill-bg: var(--pill-bg);
-  --color-pill-border: var(--pill-border);
-  --font-display: var(--font-bebas-neue);
-  --font-body: var(--font-helvetica-system);
+  --font-body: var(--font-helvetica);
 }
 
 * {
@@ -23,9 +65,9 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-helvetica);
   overflow: hidden;
   height: 100vh;
   height: 100dvh;
@@ -44,7 +86,7 @@ body::-webkit-scrollbar {
 /* Selection color */
 ::selection {
   background: var(--accent);
-  color: white;
+  color: var(--white);
 }
 
 /* Restore cursor on mobile / touch */
