@@ -67,11 +67,11 @@ function AnimatedName() {
 
   return (
     <motion.div
-      className="flex items-center justify-center select-none overflow-hidden px-4 sm:px-8"
+      className="flex items-center justify-center select-none px-4 sm:px-8"
       initial="hidden"
       animate="visible"
     >
-      <div className="flex justify-center whitespace-nowrap">
+      <div className="flex justify-center whitespace-nowrap py-[0.05em]">
         {letters.map((letter, i) => (
           <motion.span
             key={`letter-${i}`}
@@ -80,9 +80,9 @@ function AnimatedName() {
             className="inline-block"
             style={{
               fontFamily: "var(--font-helvetica)",
-              fontWeight: 900,
+              fontWeight: 700,
               fontSize: "clamp(2.2rem, 10.5vw, 10rem)",
-              lineHeight: 1,
+              lineHeight: 1.1,
               letterSpacing: "-0.07em",
               color: "var(--black)",
             }}
@@ -232,7 +232,7 @@ function BottomPill() {
           className="text-lg sm:text-xl tracking-tight mr-4 select-none"
           style={{
             fontFamily: "var(--font-helvetica)",
-            fontWeight: 900,
+            fontWeight: 700,
             letterSpacing: "-0.07em",
             color: "var(--black)",
           }}

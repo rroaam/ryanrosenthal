@@ -34,14 +34,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Helvetica Neue LT Pro";
-  src: url("/fonts/HelveticaNeueLTPro-Blk.otf") format("opentype");
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* ─── Theme ──────────────────────────────────────────────────────── */
 
 :root {
