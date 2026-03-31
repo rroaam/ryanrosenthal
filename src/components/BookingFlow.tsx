@@ -4,6 +4,15 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Navigation from "./Navigation";
 import CustomCursor from "./CustomCursor";
+import FilmGrain from "./FilmGrain";
+
+// ─── Colors (matching hero dark theme) ──────────────────────────────
+
+const BG = "#211F1F";
+const FG = "#CECED0";
+const FG_MUTED = "rgba(206,206,208,0.35)";
+const FG_DIM = "rgba(206,206,208,0.15)";
+const ACCENT = "#E5000A";
 
 // ─── Types ──────────────────────────────────────────────────────────
 
@@ -161,10 +170,10 @@ function ProgressDots({ step }: { step: number }) {
           style={{
             width: 6,
             height: 6,
-            background: s <= step ? "var(--accent)" : "rgba(33, 31, 31, 0.15)",
+            background: s <= step ? ACCENT : FG_DIM,
           }}
           animate={{
-            background: s <= step ? "var(--accent)" : "rgba(33, 31, 31, 0.15)",
+            background: s <= step ? ACCENT : FG_DIM,
             scale: s === step ? 1.3 : 1,
           }}
           transition={{ duration: 0.3 }}
@@ -190,7 +199,7 @@ function SessionTypeStep({
         style={{
           fontSize: "clamp(0.625rem, 1.2vw, 0.75rem)",
           fontWeight: 400,
-          color: "rgba(33, 31, 31, 0.4)",
+          color: FG_MUTED,
           fontFamily: "var(--font-helvetica)",
         }}
       >
@@ -206,8 +215,8 @@ function SessionTypeStep({
               onClick={() => onSelect(type)}
               className="relative rounded-full px-8 py-5 text-left transition-colors duration-200"
               style={{
-                background: isSelected ? "var(--black)" : "transparent",
-                border: `1.5px solid ${isSelected ? "var(--black)" : "rgba(33, 31, 31, 0.2)"}`,
+                background: isSelected ? FG : "transparent",
+                border: `1.5px solid ${isSelected ? FG : FG_DIM}`,
                 fontFamily: "var(--font-helvetica)",
               }}
               whileHover={{ scale: 1.01 }}
@@ -217,14 +226,14 @@ function SessionTypeStep({
               <div className="flex items-center justify-between">
                 <span
                   className="text-[13px] sm:text-sm font-medium tracking-[0.08em] uppercase"
-                  style={{ color: isSelected ? "var(--white)" : "var(--black)" }}
+                  style={{ color: isSelected ? BG : FG }}
                 >
                   {info.title}
                 </span>
                 <span
                   className="text-[11px] tracking-[0.06em]"
                   style={{
-                    color: isSelected ? "rgba(230, 230, 230, 0.6)" : "rgba(33, 31, 31, 0.35)",
+                    color: isSelected ? "rgba(33,31,31,0.6)" : FG_MUTED,
                   }}
                 >
                   {info.duration} &mdash; {info.price}
@@ -233,7 +242,7 @@ function SessionTypeStep({
               {isSelected && (
                 <motion.div
                   className="absolute bottom-0 left-8 right-8 h-[2px]"
-                  style={{ background: "var(--accent)" }}
+                  style={{ background: ACCENT }}
                   layoutId="session-underline"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
@@ -272,25 +281,23 @@ function DateStrip({
         style={{
           fontSize: "clamp(0.625rem, 1.2vw, 0.75rem)",
           fontWeight: 400,
-          color: "rgba(33, 31, 31, 0.4)",
+          color: FG_MUTED,
           fontFamily: "var(--font-helvetica)",
         }}
       >
         Pick a Date
       </h2>
       <div className="relative">
-        {/* Left arrow */}
         <button
           onClick={() => scroll("left")}
           className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center"
-          style={{ color: "rgba(33, 31, 31, 0.3)" }}
+          style={{ color: FG_MUTED }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M10 3L5 8L10 13" />
           </svg>
         </button>
 
-        {/* Scroll container */}
         <div
           ref={scrollRef}
           className="flex gap-2.5 overflow-x-auto px-10 pb-2 scrollbar-hide"
@@ -305,24 +312,24 @@ function DateStrip({
                 className="flex-shrink-0 flex flex-col items-center rounded-2xl px-4 py-3 transition-colors duration-150"
                 style={{
                   minWidth: 64,
-                  background: isSelected ? "var(--black)" : "transparent",
-                  border: `1.5px solid ${isSelected ? "var(--black)" : "rgba(33, 31, 31, 0.15)"}`,
+                  background: isSelected ? FG : "transparent",
+                  border: `1.5px solid ${isSelected ? FG : FG_DIM}`,
                   fontFamily: "var(--font-helvetica)",
                 }}
-                whileHover={!isSelected ? { borderColor: "rgba(33, 31, 31, 0.4)" } : {}}
+                whileHover={!isSelected ? { borderColor: FG_MUTED } : {}}
                 whileTap={{ scale: 0.96 }}
               >
                 <span
                   className="text-[10px] tracking-[0.12em] uppercase font-medium"
                   style={{
-                    color: isSelected ? "rgba(230, 230, 230, 0.6)" : "rgba(33, 31, 31, 0.35)",
+                    color: isSelected ? "rgba(33,31,31,0.6)" : FG_MUTED,
                   }}
                 >
                   {DAYS[date.getDay()]}
                 </span>
                 <span
                   className="text-lg font-medium mt-0.5"
-                  style={{ color: isSelected ? "var(--white)" : "var(--black)" }}
+                  style={{ color: isSelected ? BG : FG }}
                 >
                   {date.getDate()}
                 </span>
@@ -331,11 +338,10 @@ function DateStrip({
           })}
         </div>
 
-        {/* Right arrow */}
         <button
           onClick={() => scroll("right")}
           className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 flex items-center justify-center"
-          style={{ color: "rgba(33, 31, 31, 0.3)" }}
+          style={{ color: FG_MUTED }}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d="M6 3L11 8L6 13" />
@@ -362,7 +368,7 @@ function TimeSlots({
         style={{
           fontSize: "clamp(0.625rem, 1.2vw, 0.75rem)",
           fontWeight: 400,
-          color: "rgba(33, 31, 31, 0.4)",
+          color: FG_MUTED,
           fontFamily: "var(--font-helvetica)",
         }}
       >
@@ -377,19 +383,19 @@ function TimeSlots({
               onClick={() => onSelect(time)}
               className="rounded-full px-5 py-2.5 transition-colors duration-150"
               style={{
-                background: isSelected ? "var(--accent)" : "transparent",
-                border: `1.5px solid ${isSelected ? "var(--accent)" : "rgba(33, 31, 31, 0.15)"}`,
+                background: isSelected ? ACCENT : "transparent",
+                border: `1.5px solid ${isSelected ? ACCENT : FG_DIM}`,
                 fontFamily: "var(--font-helvetica)",
               }}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04, duration: 0.4, ease: [0.215, 0.61, 0.355, 1] as [number, number, number, number] }}
-              whileHover={!isSelected ? { borderColor: "rgba(33, 31, 31, 0.4)" } : {}}
+              whileHover={!isSelected ? { borderColor: FG_MUTED } : {}}
               whileTap={{ scale: 0.96 }}
             >
               <span
                 className="text-[12px] sm:text-[13px] font-medium tracking-[0.06em]"
-                style={{ color: isSelected ? "var(--white)" : "var(--black)" }}
+                style={{ color: isSelected ? "#E6E6E6" : FG }}
               >
                 {time}
               </span>
@@ -418,8 +424,8 @@ function BookingForm({
 }) {
   const inputStyle = (hasError: boolean) => ({
     background: "transparent",
-    border: `1.5px solid ${hasError ? "var(--accent)" : "rgba(33, 31, 31, 0.15)"}`,
-    color: "var(--black)",
+    border: `1.5px solid ${hasError ? ACCENT : FG_DIM}`,
+    color: FG,
     fontFamily: "var(--font-helvetica)",
     fontSize: "13px",
     outline: "none",
@@ -432,7 +438,7 @@ function BookingForm({
         style={{
           fontSize: "clamp(0.625rem, 1.2vw, 0.75rem)",
           fontWeight: 400,
-          color: "rgba(33, 31, 31, 0.4)",
+          color: FG_MUTED,
           fontFamily: "var(--font-helvetica)",
         }}
       >
@@ -445,11 +451,11 @@ function BookingForm({
             placeholder="Full Name"
             value={form.name}
             onChange={(e) => onChange("name", e.target.value)}
-            className="w-full rounded-full px-5 py-3 placeholder:text-[rgba(33,31,31,0.3)] focus:border-[var(--black)] transition-colors"
+            className="w-full rounded-full px-5 py-3 transition-colors dark-input"
             style={inputStyle(!!errors.name)}
           />
           {errors.name && (
-            <p className="text-[11px] mt-1.5 ml-5" style={{ color: "var(--accent)" }}>
+            <p className="text-[11px] mt-1.5 ml-5" style={{ color: ACCENT }}>
               {errors.name}
             </p>
           )}
@@ -460,11 +466,11 @@ function BookingForm({
             placeholder="Email"
             value={form.email}
             onChange={(e) => onChange("email", e.target.value)}
-            className="w-full rounded-full px-5 py-3 placeholder:text-[rgba(33,31,31,0.3)] focus:border-[var(--black)] transition-colors"
+            className="w-full rounded-full px-5 py-3 transition-colors dark-input"
             style={inputStyle(!!errors.email)}
           />
           {errors.email && (
-            <p className="text-[11px] mt-1.5 ml-5" style={{ color: "var(--accent)" }}>
+            <p className="text-[11px] mt-1.5 ml-5" style={{ color: ACCENT }}>
               {errors.email}
             </p>
           )}
@@ -474,7 +480,7 @@ function BookingForm({
           placeholder="Company / Project (optional)"
           value={form.company}
           onChange={(e) => onChange("company", e.target.value)}
-          className="w-full rounded-full px-5 py-3 placeholder:text-[rgba(33,31,31,0.3)] focus:border-[var(--black)] transition-colors"
+          className="w-full rounded-full px-5 py-3 transition-colors dark-input"
           style={inputStyle(false)}
         />
         <textarea
@@ -482,7 +488,7 @@ function BookingForm({
           rows={3}
           value={form.note}
           onChange={(e) => onChange("note", e.target.value)}
-          className="w-full rounded-2xl px-5 py-3 placeholder:text-[rgba(33,31,31,0.3)] focus:border-[var(--black)] transition-colors resize-none"
+          className="w-full rounded-2xl px-5 py-3 transition-colors resize-none dark-textarea"
           style={inputStyle(false)}
         />
         <motion.button
@@ -490,16 +496,16 @@ function BookingForm({
           disabled={submitting}
           className="w-full rounded-full px-5 py-3.5 mt-2 transition-all duration-200"
           style={{
-            background: "var(--black)",
+            background: ACCENT,
             fontFamily: "var(--font-helvetica)",
             opacity: submitting ? 0.6 : 1,
           }}
-          whileHover={{ scale: 1.01, filter: "brightness(1.2)" }}
+          whileHover={{ scale: 1.01, filter: "brightness(1.15)" }}
           whileTap={{ scale: 0.99 }}
         >
           <span
             className="text-[11px] sm:text-[12px] font-medium tracking-[0.18em] uppercase"
-            style={{ color: "var(--white)" }}
+            style={{ color: "#E6E6E6" }}
           >
             {submitting ? "Booking..." : "Confirm Booking \u2192"}
           </span>
@@ -548,7 +554,6 @@ function Confirmation({
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
     >
-      {/* Animated checkmark */}
       <motion.svg
         width="64"
         height="64"
@@ -560,7 +565,7 @@ function Confirmation({
           cx="32"
           cy="32"
           r="28"
-          stroke="var(--accent)"
+          stroke={ACCENT}
           strokeWidth="2"
           fill="none"
           initial={{ pathLength: 0 }}
@@ -569,7 +574,7 @@ function Confirmation({
         />
         <motion.path
           d="M20 33L28 41L44 25"
-          stroke="var(--accent)"
+          stroke={ACCENT}
           strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -587,7 +592,7 @@ function Confirmation({
           fontWeight: 700,
           fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
           letterSpacing: "-0.04em",
-          color: "var(--black)",
+          color: FG,
         }}
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -598,7 +603,7 @@ function Confirmation({
 
       <motion.p
         className="text-sm mb-1"
-        style={{ color: "var(--black)", fontFamily: "var(--font-helvetica)", fontWeight: 400 }}
+        style={{ color: FG, fontFamily: "var(--font-helvetica)", fontWeight: 400 }}
         initial={{ y: 15, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.65, duration: 0.5 }}
@@ -608,7 +613,7 @@ function Confirmation({
 
       <motion.p
         className="text-xs mb-8"
-        style={{ color: "rgba(33, 31, 31, 0.4)", fontFamily: "var(--font-helvetica)" }}
+        style={{ color: FG_MUTED, fontFamily: "var(--font-helvetica)" }}
         initial={{ y: 15, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.75, duration: 0.5 }}
@@ -628,8 +633,8 @@ function Confirmation({
           rel="noopener noreferrer"
           className="rounded-full px-6 py-3 text-[11px] font-medium tracking-[0.15em] uppercase transition-all duration-200 hover:scale-[1.02]"
           style={{
-            background: "var(--black)",
-            color: "var(--white)",
+            background: FG,
+            color: BG,
             fontFamily: "var(--font-helvetica)",
           }}
         >
@@ -640,8 +645,8 @@ function Confirmation({
           className="rounded-full px-6 py-3 text-[11px] font-medium tracking-[0.15em] uppercase transition-all duration-200 hover:scale-[1.02]"
           style={{
             background: "transparent",
-            border: "1.5px solid rgba(33, 31, 31, 0.2)",
-            color: "var(--black)",
+            border: `1.5px solid ${FG_DIM}`,
+            color: FG,
             fontFamily: "var(--font-helvetica)",
           }}
         >
@@ -652,7 +657,7 @@ function Confirmation({
       <motion.button
         onClick={onReset}
         className="mt-6 text-[11px] tracking-[0.08em] uppercase group relative"
-        style={{ color: "rgba(33, 31, 31, 0.4)", fontFamily: "var(--font-helvetica)" }}
+        style={{ color: FG_MUTED, fontFamily: "var(--font-helvetica)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
@@ -660,7 +665,7 @@ function Confirmation({
         Book another
         <span
           className="absolute left-0 -bottom-[2px] h-[1px] w-full origin-right scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
-          style={{ background: "var(--accent)" }}
+          style={{ background: ACCENT }}
         />
       </motion.button>
     </motion.div>
@@ -732,7 +737,6 @@ export default function BookingFlow() {
       // Proceed even if email fails
     }
 
-    // Open gcal for Ryan
     const gcalUrl = buildGcalUrl(
       sessionType!,
       selectedDate!,
@@ -761,16 +765,23 @@ export default function BookingFlow() {
   return (
     <>
       <CustomCursor />
+      <FilmGrain opacity={0.035} />
       <div
         className="relative min-h-screen w-full"
-        style={{ background: "var(--white)" }}
+        style={{ background: BG }}
       >
-        <Navigation delay={0.2} />
+        <Navigation delay={0.2} dark />
 
-        {/* Content */}
+        {/* Placeholder input styles */}
+        <style>{`
+          .dark-input::placeholder { color: ${FG_MUTED}; }
+          .dark-input:focus { border-color: ${FG} !important; }
+          .dark-textarea::placeholder { color: ${FG_MUTED}; }
+          .dark-textarea:focus { border-color: ${FG} !important; }
+        `}</style>
+
         <div className="flex flex-col items-center justify-center min-h-screen px-6 pt-24 pb-12">
           <div className="w-full max-w-[680px] flex flex-col items-center">
-            {/* Progress dots */}
             {step < 5 && (
               <motion.div
                 className="mb-10"
@@ -782,7 +793,6 @@ export default function BookingFlow() {
               </motion.div>
             )}
 
-            {/* Steps */}
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <SessionTypeStep

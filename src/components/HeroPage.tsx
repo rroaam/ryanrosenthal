@@ -1,8 +1,11 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useCallback } from "react";
 import { motion } from "framer-motion";
 import CustomCursor from "./CustomCursor";
+import FilmGrain from "./FilmGrain";
+import Preloader from "./Preloader";
+import { useTextScramble } from "@/hooks/useTextScramble";
 
 // ─── Colors ─────────────────────────────────────────────────────────
 
@@ -153,9 +156,12 @@ function SolidTitle() {
   );
 }
 
-// ─── Discipline List ────────────────────────────────────────────────
+// ─── Discipline List (with scramble hover) ──────────────────────────
 
 function Disciplines() {
+  const text = "Design  x  Brand Dev  x  Product  x  World Building  x  Content Creation";
+  const { display, scramble, reset } = useTextScramble(text, 25);
+
   return (
     <motion.p
       className="text-center uppercase mt-4 sm:mt-6"
@@ -167,9 +173,11 @@ function Disciplines() {
         color: FG,
         whiteSpace: "pre-wrap",
       }}
+      onMouseEnter={scramble}
+      onMouseLeave={reset}
       {...fade(1.5)}
     >
-      Design  x  Brand Dev  x  Product  x  World Building  x  Content Creation
+      {display}
     </motion.p>
   );
 }
@@ -183,7 +191,6 @@ function EmailCapture() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
-    // Could connect to an API later — for now, open mailto
     window.location.href = `mailto:ryan@ryanrosenthal.com?subject=Let's%20connect&body=Hi%20Ryan,%20my%20email%20is%20${encodeURIComponent(email)}`;
     setSubmitted(true);
   };
@@ -195,9 +202,7 @@ function EmailCapture() {
       {...fade(1.8)}
     >
       <div className="flex items-center gap-3">
-        {/* Cursor line */}
         <div style={{ width: 1.5, height: 24, background: MUTED }} />
-
         <input
           type="email"
           placeholder="DROP YOUR EMAIL"
@@ -213,10 +218,9 @@ function EmailCapture() {
             color: submitted ? FG : MUTED,
           }}
         />
-
-        {/* Arrow button */}
         <button
           type="submit"
+          data-cursor-label="SEND"
           className="flex-shrink-0 transition-transform duration-200 hover:scale-110"
           style={{ color: MUTED }}
         >
@@ -225,24 +229,27 @@ function EmailCapture() {
           </svg>
         </button>
       </div>
-
-      {/* Underline */}
       <div className="mt-3" style={{ height: 4, background: LINE }} />
     </motion.form>
   );
 }
 
-// ─── Book CTA ───────────────────────────────────────────────────────
+// ─── Book CTA (with scramble) ───────────────────────────────────────
 
 function BookCTA() {
+  const { display, scramble, reset } = useTextScramble("Start a Project", 30);
+
   return (
     <motion.a
       href="/book"
-      className="mt-6 inline-flex items-center rounded-full px-6 py-3 transition-all duration-200 ease-out hover:scale-[1.02] active:scale-[0.98]"
+      data-cursor-label="BOOK"
+      className="mt-6 inline-flex items-center rounded-full px-6 py-3 transition-all duration-200 ease-out"
       style={{
         background: ACCENT,
         fontFamily: "var(--font-helvetica)",
       }}
+      onMouseEnter={scramble}
+      onMouseLeave={reset}
       {...fade(2.0)}
       whileHover={{ scale: 1.02, filter: "brightness(1.15)" }}
       whileTap={{ scale: 0.98 }}
@@ -251,7 +258,7 @@ function BookCTA() {
         className="text-[10px] sm:text-[11px] font-medium tracking-[0.18em] uppercase whitespace-nowrap"
         style={{ color: "#E6E6E6" }}
       >
-        Start a Project
+        {display}
       </span>
     </motion.a>
   );
@@ -262,7 +269,6 @@ function BookCTA() {
 function GlobeFooter() {
   return (
     <motion.div className="flex flex-col items-center gap-2" {...fade(2.2)}>
-      {/* Globe — invert colors for dark bg */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/globe-logo.svg"
@@ -288,19 +294,28 @@ function GlobeFooter() {
 // ─── Hero Page ──────────────────────────────────────────────────────
 
 export default function HeroPage() {
+  const [loaded, setLoaded] = useState(false);
+
+  const handlePreloaderComplete = useCallback(() => {
+    setLoaded(true);
+  }, []);
+
   return (
     <>
       <CustomCursor />
+      <FilmGrain opacity={0.035} />
+      <Preloader onComplete={handlePreloaderComplete} />
+
       <div
         className="relative min-h-screen w-full flex flex-col items-center overflow-hidden"
-        style={{ background: BG }}
+        style={{ background: BG, visibility: loaded ? "visible" : "hidden" }}
       >
         {/* R——R Header */}
         <div className="w-full pt-3 sm:pt-4 px-2 sm:px-4">
           <RRHeader />
         </div>
 
-        {/* Main content — vertically centered */}
+        {/* Main content */}
         <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-0">
           <OutlineName />
           <SolidTitle />
