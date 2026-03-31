@@ -19,7 +19,14 @@ export default function FilmGrain({ opacity = 0.04 }: { opacity?: number }) {
     resize();
     window.addEventListener("resize", resize);
 
-    const draw = () => {
+    let lastTime = 0;
+    const interval = 1000 / 15; // ~15fps — grain looks authentic at low framerate
+
+    const draw = (ts: number) => {
+      animId = requestAnimationFrame(draw);
+      if (ts - lastTime < interval) return;
+      lastTime = ts;
+
       const { width, height } = canvas;
       const imageData = ctx.createImageData(width, height);
       const data = imageData.data;
@@ -31,9 +38,8 @@ export default function FilmGrain({ opacity = 0.04 }: { opacity?: number }) {
         data[i + 3] = 255;
       }
       ctx.putImageData(imageData, 0, 0);
-      animId = requestAnimationFrame(draw);
     };
-    draw();
+    animId = requestAnimationFrame(draw);
 
     return () => {
       cancelAnimationFrame(animId);

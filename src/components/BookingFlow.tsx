@@ -722,21 +722,8 @@ export default function BookingFlow() {
     }
 
     setSubmitting(true);
-    try {
-      await fetch("/api/book", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          sessionType,
-          date: formatDateLong(selectedDate!),
-          time: selectedTime,
-        }),
-      });
-    } catch {
-      // Proceed even if email fails
-    }
 
+    // Open Google Calendar immediately (before async fetch) to avoid popup blocker
     const gcalUrl = buildGcalUrl(
       sessionType!,
       selectedDate!,
@@ -746,6 +733,18 @@ export default function BookingFlow() {
       form.note,
     );
     window.open(gcalUrl, "_blank");
+
+    // Fire-and-forget email notification
+    fetch("/api/book", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form,
+        sessionType,
+        date: formatDateLong(selectedDate!),
+        time: selectedTime,
+      }),
+    }).catch(() => {});
 
     setSubmitting(false);
     setStep(5);

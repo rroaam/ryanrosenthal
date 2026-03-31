@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent, useCallback } from "react";
+import { useState, useEffect, FormEvent, useCallback } from "react";
 import { motion } from "framer-motion";
 import CustomCursor from "./CustomCursor";
 import FilmGrain from "./FilmGrain";
@@ -295,6 +295,20 @@ function GlobeFooter() {
 
 export default function HeroPage() {
   const [loaded, setLoaded] = useState(false);
+  const [showPreloader, setShowPreloader] = useState(false);
+
+  // Only show preloader on first visit per session
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const seen = sessionStorage.getItem("rr-preloader-seen");
+      if (!seen) {
+        setShowPreloader(true);
+        sessionStorage.setItem("rr-preloader-seen", "1");
+      } else {
+        setLoaded(true);
+      }
+    }
+  }, []);
 
   const handlePreloaderComplete = useCallback(() => {
     setLoaded(true);
@@ -304,31 +318,39 @@ export default function HeroPage() {
     <>
       <CustomCursor />
       <FilmGrain opacity={0.035} />
-      <Preloader onComplete={handlePreloaderComplete} />
+      {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
 
-      <div
-        className="relative min-h-screen w-full flex flex-col items-center overflow-hidden"
-        style={{ background: BG, visibility: loaded ? "visible" : "hidden" }}
-      >
-        {/* R——R Header */}
-        <div className="w-full pt-3 sm:pt-4 px-2 sm:px-4">
-          <RRHeader />
-        </div>
+      {/* Only render hero content after preloader so animations play fresh */}
+      {loaded && (
+        <div
+          className="relative min-h-screen w-full flex flex-col items-center overflow-hidden"
+          style={{ background: BG }}
+        >
+          {/* R——R Header */}
+          <div className="w-full pt-3 sm:pt-4 px-2 sm:px-4">
+            <RRHeader />
+          </div>
 
-        {/* Main content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-0">
-          <OutlineName />
-          <SolidTitle />
-          <Disciplines />
-          <EmailCapture />
-          <BookCTA />
-        </div>
+          {/* Main content */}
+          <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-0">
+            <OutlineName />
+            <SolidTitle />
+            <Disciplines />
+            <EmailCapture />
+            <BookCTA />
+          </div>
 
-        {/* Globe footer */}
-        <div className="pb-8 sm:pb-12">
-          <GlobeFooter />
+          {/* Globe footer */}
+          <div className="pb-8 sm:pb-12">
+            <GlobeFooter />
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Dark bg while preloader runs (prevents white flash) */}
+      {!loaded && (
+        <div className="fixed inset-0" style={{ background: BG }} />
+      )}
     </>
   );
 }
