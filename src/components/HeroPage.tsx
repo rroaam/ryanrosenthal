@@ -1,19 +1,18 @@
 "use client";
 
-import { useState, useEffect, FormEvent, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import CustomCursor from "./CustomCursor";
 import FilmGrain from "./FilmGrain";
 import Preloader from "./Preloader";
+import BookingContent from "./BookingContent";
 import { useTextScramble } from "@/hooks/useTextScramble";
 
 // ─── Colors ─────────────────────────────────────────────────────────
 
 const BG = "#211F1F";
 const FG = "#CECED0";
-const MUTED = "rgba(206,206,208,0.25)";
 const ACCENT = "#E5000A";
-const LINE = "#4C4B4B";
 
 // ─── Animation ──────────────────────────────────────────────────────
 
@@ -47,22 +46,14 @@ function RRHeader() {
     >
       <span
         className="select-none leading-none"
-        style={{
-          fontSize: "clamp(3rem, 8vw, 7rem)",
-          color: FG,
-          letterSpacing: "-0.04em",
-        }}
+        style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: FG, letterSpacing: "-0.04em" }}
       >
         R
       </span>
       <div className="flex-1 mx-3 sm:mx-6" style={{ height: 3, background: FG }} />
       <span
         className="select-none leading-none"
-        style={{
-          fontSize: "clamp(3rem, 8vw, 7rem)",
-          color: FG,
-          letterSpacing: "-0.04em",
-        }}
+        style={{ fontSize: "clamp(3rem, 8vw, 7rem)", color: FG, letterSpacing: "-0.04em" }}
       >
         R
       </span>
@@ -77,12 +68,7 @@ function OutlineName() {
   const letters = name.split("");
 
   return (
-    <motion.div
-      className="select-none text-center"
-      initial="hidden"
-      animate="visible"
-    >
-      {/* Desktop: single line */}
+    <motion.div className="select-none text-center" initial="hidden" animate="visible">
       <div className="hidden sm:flex justify-center whitespace-nowrap py-[0.05em]">
         {letters.map((letter, i) => (
           <motion.span
@@ -91,13 +77,9 @@ function OutlineName() {
             variants={letterVariants}
             className="inline-block"
             style={{
-              fontFamily: "var(--font-helvetica)",
-              fontWeight: 700,
-              fontSize: "clamp(3rem, 7.5vw, 5rem)",
-              lineHeight: 1.1,
-              letterSpacing: "-0.07em",
-              WebkitTextStroke: `1.5px ${FG}`,
-              color: "transparent",
+              fontFamily: "var(--font-helvetica)", fontWeight: 700,
+              fontSize: "clamp(3rem, 7.5vw, 5rem)", lineHeight: 1.1,
+              letterSpacing: "-0.07em", WebkitTextStroke: `1.5px ${FG}`, color: "transparent",
             }}
           >
             {letter === " " ? "\u00A0" : letter}
@@ -105,7 +87,6 @@ function OutlineName() {
         ))}
       </div>
 
-      {/* Mobile: two lines */}
       <div className="flex flex-col items-center sm:hidden">
         {["RYAN", "ROSENTHAL"].map((word, wi) => (
           <div key={word} className="flex justify-center whitespace-nowrap">
@@ -116,13 +97,9 @@ function OutlineName() {
                 variants={letterVariants}
                 className="inline-block"
                 style={{
-                  fontFamily: "var(--font-helvetica)",
-                  fontWeight: 700,
-                  fontSize: "clamp(3.5rem, 17vw, 5rem)",
-                  lineHeight: 0.95,
-                  letterSpacing: "-0.07em",
-                  WebkitTextStroke: `1.5px ${FG}`,
-                  color: "transparent",
+                  fontFamily: "var(--font-helvetica)", fontWeight: 700,
+                  fontSize: "clamp(3.5rem, 17vw, 5rem)", lineHeight: 0.95,
+                  letterSpacing: "-0.07em", WebkitTextStroke: `1.5px ${FG}`, color: "transparent",
                 }}
               >
                 {letter}
@@ -142,12 +119,9 @@ function SolidTitle() {
     <motion.h2
       className="text-center uppercase select-none -mt-1 sm:mt-0"
       style={{
-        fontFamily: "var(--font-helvetica)",
-        fontWeight: 700,
-        fontSize: "clamp(1.5rem, 4.5vw, 3.5rem)",
-        letterSpacing: "-0.07em",
-        color: FG,
-        lineHeight: 1.1,
+        fontFamily: "var(--font-helvetica)", fontWeight: 700,
+        fontSize: "clamp(1.5rem, 4.5vw, 3.5rem)", letterSpacing: "-0.07em",
+        color: FG, lineHeight: 1.1,
       }}
       {...fade(1.2)}
     >
@@ -156,7 +130,7 @@ function SolidTitle() {
   );
 }
 
-// ─── Discipline List (with scramble hover) ──────────────────────────
+// ─── Discipline List ────────────────────────────────────────────────
 
 function Disciplines() {
   const text = "Design  x  Brand Dev  x  Product  x  World Building  x  Content Creation";
@@ -166,12 +140,9 @@ function Disciplines() {
     <motion.p
       className="text-center uppercase mt-4 sm:mt-6"
       style={{
-        fontFamily: "var(--font-helvetica)",
-        fontWeight: 500,
-        fontSize: "clamp(7px, 1vw, 9.5px)",
-        letterSpacing: "0.08em",
-        color: FG,
-        whiteSpace: "pre-wrap",
+        fontFamily: "var(--font-helvetica)", fontWeight: 500,
+        fontSize: "clamp(7px, 1vw, 9.5px)", letterSpacing: "0.08em",
+        color: FG, whiteSpace: "pre-wrap",
       }}
       onMouseEnter={scramble}
       onMouseLeave={reset}
@@ -182,75 +153,20 @@ function Disciplines() {
   );
 }
 
-// ─── Email Input ────────────────────────────────────────────────────
+// ─── Book CTA ───────────────────────────────────────────────────────
 
-function EmailCapture() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    window.location.href = `mailto:ryan@ryanrosenthal.com?subject=Let's%20connect&body=Hi%20Ryan,%20my%20email%20is%20${encodeURIComponent(email)}`;
-    setSubmitted(true);
-  };
-
-  return (
-    <motion.form
-      onSubmit={handleSubmit}
-      className="w-full max-w-[352px] mt-12 sm:mt-16"
-      {...fade(1.8)}
-    >
-      <div className="flex items-center gap-3">
-        <div style={{ width: 1.5, height: 24, background: MUTED }} />
-        <input
-          type="email"
-          placeholder="DROP YOUR EMAIL"
-          value={submitted ? "SENT" : email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={submitted}
-          className="flex-1 bg-transparent outline-none placeholder:uppercase"
-          style={{
-            fontFamily: "var(--font-helvetica)",
-            fontWeight: 500,
-            fontSize: "clamp(14px, 2vw, 22px)",
-            letterSpacing: "-0.07em",
-            color: submitted ? FG : MUTED,
-          }}
-        />
-        <button
-          type="submit"
-          data-cursor-label="SEND"
-          className="flex-shrink-0 transition-transform duration-200 hover:scale-110"
-          style={{ color: MUTED }}
-        >
-          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style={{ transform: "rotate(-45deg)" }}>
-            <path d="M6 14H22M22 14L15 7M22 14L15 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-      <div className="mt-3" style={{ height: 4, background: LINE }} />
-    </motion.form>
-  );
-}
-
-// ─── Book CTA (with scramble) ───────────────────────────────────────
-
-function BookCTA() {
+function BookCTA({ onClick }: { onClick: () => void }) {
   const { display, scramble, reset } = useTextScramble("Start a Project", 30);
 
   return (
-    <motion.a
-      href="/book"
+    <motion.button
+      onClick={onClick}
       data-cursor-label="BOOK"
-      className="mt-6 inline-flex items-center rounded-full px-6 py-3 transition-all duration-200 ease-out"
-      style={{
-        background: ACCENT,
-        fontFamily: "var(--font-helvetica)",
-      }}
+      className="mt-10 sm:mt-14 inline-flex items-center rounded-full px-6 py-3 transition-all duration-200 ease-out"
+      style={{ background: ACCENT, fontFamily: "var(--font-helvetica)" }}
       onMouseEnter={scramble}
       onMouseLeave={reset}
-      {...fade(2.0)}
+      {...fade(1.8)}
       whileHover={{ scale: 1.02, filter: "brightness(1.15)" }}
       whileTap={{ scale: 0.98 }}
     >
@@ -260,7 +176,7 @@ function BookCTA() {
       >
         {display}
       </span>
-    </motion.a>
+    </motion.button>
   );
 }
 
@@ -268,7 +184,7 @@ function BookCTA() {
 
 function GlobeFooter() {
   return (
-    <motion.div className="flex flex-col items-center gap-2" {...fade(2.2)}>
+    <motion.div className="flex flex-col items-center gap-2" {...fade(2.0)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/globe-logo.svg"
@@ -278,15 +194,57 @@ function GlobeFooter() {
       />
       <p
         className="uppercase text-center tracking-[0.06em]"
-        style={{
-          fontFamily: "var(--font-helvetica)",
-          fontWeight: 500,
-          fontSize: "13.5px",
-          color: FG,
-        }}
+        style={{ fontFamily: "var(--font-helvetica)", fontWeight: 500, fontSize: "13.5px", color: FG }}
       >
         Ryan Rosenthal
       </p>
+    </motion.div>
+  );
+}
+
+// ─── Booking Modal ──────────────────────────────────────────────────
+
+function BookingModal({ onClose }: { onClose: () => void }) {
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = ""; };
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4, ease: EASE }}
+    >
+      {/* Backdrop */}
+      <motion.div
+        className="absolute inset-0"
+        style={{ background: "rgba(33,31,31,0.95)", backdropFilter: "blur(20px)" }}
+        onClick={onClose}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      />
+
+      {/* Modal content */}
+      <motion.div
+        className="relative w-full max-w-[760px] max-h-[90vh] overflow-y-auto mx-4 rounded-3xl"
+        style={{
+          background: BG,
+          border: "1px solid rgba(206,206,208,0.08)",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+        initial={{ y: 60, opacity: 0, scale: 0.96 }}
+        animate={{ y: 0, opacity: 1, scale: 1 }}
+        exit={{ y: 40, opacity: 0, scale: 0.97 }}
+        transition={{ duration: 0.5, ease: EASE }}
+      >
+        <BookingContent onClose={onClose} />
+      </motion.div>
     </motion.div>
   );
 }
@@ -296,8 +254,8 @@ function GlobeFooter() {
 export default function HeroPage() {
   const [loaded, setLoaded] = useState(false);
   const [showPreloader, setShowPreloader] = useState(false);
+  const [showBooking, setShowBooking] = useState(false);
 
-  // Only show preloader on first visit per session
   useEffect(() => {
     if (typeof window !== "undefined") {
       const seen = sessionStorage.getItem("rr-preloader-seen");
@@ -320,37 +278,36 @@ export default function HeroPage() {
       <FilmGrain opacity={0.035} />
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
 
-      {/* Only render hero content after preloader so animations play fresh */}
       {loaded && (
         <div
           className="relative min-h-screen w-full flex flex-col items-center overflow-hidden"
           style={{ background: BG }}
         >
-          {/* R——R Header */}
           <div className="w-full pt-3 sm:pt-4 px-2 sm:px-4">
             <RRHeader />
           </div>
 
-          {/* Main content */}
           <div className="flex-1 flex flex-col items-center justify-center px-6 py-12 gap-0">
             <OutlineName />
             <SolidTitle />
             <Disciplines />
-            <EmailCapture />
-            <BookCTA />
+            <BookCTA onClick={() => setShowBooking(true)} />
           </div>
 
-          {/* Globe footer */}
           <div className="pb-8 sm:pb-12">
             <GlobeFooter />
           </div>
         </div>
       )}
 
-      {/* Dark bg while preloader runs (prevents white flash) */}
       {!loaded && (
         <div className="fixed inset-0" style={{ background: BG }} />
       )}
+
+      {/* Booking Modal */}
+      <AnimatePresence>
+        {showBooking && <BookingModal onClose={() => setShowBooking(false)} />}
+      </AnimatePresence>
     </>
   );
 }
