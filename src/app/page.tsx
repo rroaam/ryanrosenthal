@@ -887,74 +887,43 @@ export default function Home() {
 
             <div
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-                gap: 0,
-                borderTop: "1px solid #E0E0E0",
-                borderLeft: "1px solid #E0E0E0",
+                lineHeight: 1.8,
+                maxWidth: 900,
               }}
             >
               {[
-                { name: "Celia Health", type: "Health / Tech" },
-                { name: "Chegg", type: "EdTech" },
-                { name: "Compatible.LA", type: "Live Events" },
-                { name: "Cowboy Colostrum", type: "DTC / Nutrition" },
-                { name: "Fun Guy", type: "CPG / Wellness" },
-                { name: "Grammy Recording Academy", type: "Music Industry" },
-                { name: "LIV Las Vegas", type: "Nightlife" },
-                { name: "MUD\\WTR", type: "DTC / Wellness" },
-                { name: "SaunaBox", type: "Wellness / DTC" },
-                { name: "Schwartz & Schreiber", type: "Entertainment Law" },
-                { name: "Skylrk", type: "Creator Economy" },
-                { name: "Snapchat", type: "Tech / Platform" },
-                { name: "Sprite \u00d7 UMG", type: "CPG / Music" },
-                { name: "Stageverse", type: "Metaverse" },
-                { name: "Superpower", type: "Health / AI" },
-                { name: "The Girls in 401", type: "Entertainment" },
-                { name: "The90", type: "Wellness / Wearable" },
-                { name: "Therabody", type: "Wellness / Tech" },
-                { name: "Ultra Records", type: "Music Label" },
-                { name: "Unitea", type: "CPG / Beverage" },
-                { name: "Universal Music Group", type: "Music / Entertainment" },
-                { name: "Wild Society Nutrition", type: "CPG / Supplements" },
-              ].map((c) => (
-                <ScrollReveal key={c.name}>
-                  <div
+                "Adaptive", "Agrippa", "Algo", "Alien Water", "A'muse",
+                "Celia Health", "Chegg", "Compatible.LA", "Coral House",
+                "Cowboy Colostrum", "Fun Guy", "Grammy Recording Academy",
+                "Kintsugi", "LIV Las Vegas", "Livegrid", "MUD\\WTR",
+                "OPLAE", "Playful AI", "SaunaBox", "Schwartz & Schreiber",
+                "Skylrk", "Snapchat", "Sprite \u00d7 UMG", "Stageverse",
+                "Superpower", "Supermassive", "Tabs", "The Girls in 401",
+                "The90", "Therabody", "Ultra Records", "Unitea",
+                "Universal Music Group", "Wheelz", "Wild Society Nutrition", "Yuno",
+              ].map((name, i, arr) => (
+                <span key={name}>
+                  <span
+                    className="client-name"
                     style={{
-                      background: "transparent",
-                      padding: 24,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 4,
-                      borderRight: "1px solid #E0E0E0",
-                      borderBottom: "1px solid #E0E0E0",
-                      transition: "background 0.15s",
+                      fontWeight: 800,
+                      fontSize: "clamp(14px, 1.8vw, 18px)",
+                      textTransform: "uppercase",
+                      letterSpacing: "-0.01em",
+                      color: "#0A0A0A",
+                      transition: "color 0.2s",
                     }}
-                    className="hover:!bg-[#FAFAFA]"
                   >
-                    <div
-                      style={{
-                        fontWeight: 900,
-                        fontSize: 20,
-                        letterSpacing: "-0.01em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {c.name}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 10,
-                        color: "#5a5a5a",
-                        letterSpacing: "0.06em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {c.type}
-                    </div>
-                  </div>
-                </ScrollReveal>
+                    {name}
+                  </span>
+                  {i < arr.length - 1 && (
+                    <span style={{ color: "#CECED0", margin: "0 12px", fontSize: 14 }}>&middot;</span>
+                  )}
+                </span>
               ))}
+              <style>{`
+                .client-name:hover { color: #0000FF !important; }
+              `}</style>
             </div>
           </section>
         </ScrollReveal>
