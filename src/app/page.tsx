@@ -151,7 +151,6 @@ export default function Home() {
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
           <motion.div
             {...fadeUp(0.1)}
-            className="hero-name-wrap"
             style={{
               fontFamily: "var(--font-helvetica)",
               fontWeight: 900,
@@ -161,30 +160,25 @@ export default function Home() {
               textTransform: "uppercase",
               color: "#0A0A0A",
             }}
-            whileHover={{
-              letterSpacing: "-0.02em",
-              transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
-            }}
           >
             <style>{`
-              .hero-name-wrap {
+              .hero-letter {
+                display: inline-block;
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
                 cursor: none !important;
-                background: linear-gradient(90deg, #0A0A0A 0%, #0A0A0A 100%);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
-                transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
               }
-              .hero-name-wrap:hover {
-                background: linear-gradient(90deg, #0000FF 0%, #4A00E0 50%, #0A0A0A 100%);
-                background-clip: text;
-                -webkit-background-clip: text;
-                -webkit-text-fill-color: transparent;
+              .hero-letter:hover {
+                transform: scaleY(1.3);
+                color: #0000FF;
               }
             `}</style>
-            Ryan
+            {"RYAN".split("").map((ch, i) => (
+              <span key={`r${i}`} className="hero-letter">{ch}</span>
+            ))}
             <br />
-            Rosenthal
+            {"ROSENTHAL".split("").map((ch, i) => (
+              <span key={`s${i}`} className="hero-letter">{ch}</span>
+            ))}
           </motion.div>
 
           <motion.div
