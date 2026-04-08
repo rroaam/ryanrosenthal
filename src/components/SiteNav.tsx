@@ -24,8 +24,8 @@ export default function SiteNav() {
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
-        padding: "0 40px",
-        height: "56px",
+        padding: "0 clamp(16px, 4vw, 40px)",
+        height: "52px",
       }}
     >
       <Link

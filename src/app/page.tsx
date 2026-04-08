@@ -145,7 +145,7 @@ export default function Home() {
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
-          padding: "100px 40px 60px",
+          padding: "clamp(70px, 12vw, 100px) clamp(20px, 4vw, 40px) 60px",
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
@@ -257,7 +257,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════
           RESUME CONTENT
           ═══════════════════════════════════════════ */}
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 clamp(20px, 4vw, 40px)" }}>
         {/* BIO */}
         <ScrollReveal>
           <section
