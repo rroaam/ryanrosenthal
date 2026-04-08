@@ -37,9 +37,13 @@
 /* ─── Theme ──────────────────────────────────────────────────────── */
 
 :root {
-  --black: #211F1F;
-  --white: #E6E6E6;
-  --accent: #E5000A;
+  --black: #0A0A0A;
+  --white: #F4F3F1;
+  --accent: #0000FF;
+  --blue: #0000FF;
+  --border: #E0E0E0;
+  --gray-muted: #5a5a5a;
+  --gray-light: #CECED0;
   --pill-bg: rgba(33, 31, 31, 0.06);
   --pill-border: rgba(33, 31, 31, 0.12);
   --font-helvetica: "Helvetica Neue LT Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -57,7 +61,7 @@
 }
 
 body {
-  background: var(--white);
+  background: #F4F3F1;
   color: var(--black);
   font-family: var(--font-helvetica);
 }

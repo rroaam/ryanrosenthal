@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CustomCursor from "@/components/CustomCursor";
+import FilmGrain from "@/components/FilmGrain";
 
 export const metadata: Metadata = {
   title: "Ryan Rosenthal — A.I. x Creative Director",
@@ -28,7 +30,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="h-full">{children}</body>
+      <body className="h-full" style={{ background: "#F4F3F1" }}>
+        <CustomCursor />
+        <FilmGrain opacity={0.025} />
+        {children}
+      </body>
     </html>
   );
 }

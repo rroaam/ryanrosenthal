@@ -1,172 +1,138 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [visible, setVisible] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [label, setLabel] = useState<string | null>(null);
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  const springConfig = { damping: 25, stiffness: 250, mass: 0.5 };
-  const x = useSpring(cursorX, springConfig);
-  const y = useSpring(cursorY, springConfig);
-
   const isTouchDevice = useRef(false);
-  const mousePos = useRef({ x: 0, y: 0 });
-
-  // Magnetic pull effect
-  const applyMagnetic = useCallback(
-    (el: Element) => {
-      const rect = el.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = mousePos.current.x - cx;
-      const dy = mousePos.current.y - cy;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const radius = Math.max(rect.width, rect.height) * 0.8;
-
-      if (dist < radius) {
-        const pull = 0.35;
-        const tx = cx + dx * pull;
-        const ty = cy + dy * pull;
-        cursorX.set(tx);
-        cursorY.set(ty);
-        return true;
-      }
-      return false;
-    },
-    [cursorX, cursorY],
-  );
+  const mousePos = useRef({ x: -100, y: -100 });
+  const trail = useRef<{ x: number; y: number; age: number }[]>([]);
+  const animRef = useRef<number>(0);
 
   useEffect(() => {
     isTouchDevice.current =
       "ontouchstart" in window || navigator.maxTouchPoints > 0;
     if (isTouchDevice.current) return;
 
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
-
-      // Check if hovering a magnetic element
-      const magnetic = document.querySelectorAll("a, button, [data-cursor-hover]");
-      let pulled = false;
-      magnetic.forEach((el) => {
-        if ((el as HTMLElement).matches(":hover")) {
-          pulled = applyMagnetic(el);
-        }
-      });
-
-      if (!pulled) {
-        cursorX.set(e.clientX);
-        cursorY.set(e.clientY);
-      }
+      trail.current.push({ x: e.clientX, y: e.clientY, age: 0 });
+      // Keep trail length manageable
+      if (trail.current.length > 30) trail.current.shift();
       if (!visible) setVisible(true);
     };
 
-    const handleMouseEnter = () => setVisible(true);
     const handleMouseLeave = () => setVisible(false);
+    const handleMouseEnter = () => setVisible(true);
 
     window.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseenter", handleMouseEnter);
     document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mouseenter", handleMouseEnter);
 
-    // Track interactive element hovers with context labels
-    const handleElementEnter = (e: Event) => {
-      setHovering(true);
-      const el = e.currentTarget as HTMLElement;
-      const cursorLabel = el.getAttribute("data-cursor-label");
-      if (cursorLabel) setLabel(cursorLabel);
-    };
-    const handleElementLeave = () => {
-      setHovering(false);
-      setLabel(null);
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      if (!visible) {
+        animRef.current = requestAnimationFrame(animate);
+        return;
+      }
+
+      // Age trail points
+      trail.current.forEach((p) => (p.age += 1));
+      // Remove old points
+      trail.current = trail.current.filter((p) => p.age < 25);
+
+      // Draw trail with fading glow
+      for (let i = 0; i < trail.current.length; i++) {
+        const p = trail.current[i];
+        const life = 1 - p.age / 25;
+        const radius = 3 + life * 4;
+
+        // Glow
+        const gradient = ctx.createRadialGradient(
+          p.x, p.y, 0,
+          p.x, p.y, radius * 3
+        );
+        gradient.addColorStop(0, `rgba(0, 0, 255, ${life * 0.15})`);
+        gradient.addColorStop(0.5, `rgba(0, 0, 255, ${life * 0.05})`);
+        gradient.addColorStop(1, "rgba(0, 0, 255, 0)");
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius * 3, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Core dot
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, radius * life, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 0, 255, ${life * 0.4})`;
+        ctx.fill();
+      }
+
+      // Main orb at current position
+      const { x, y } = mousePos.current;
+
+      // Outer glow
+      const mainGlow = ctx.createRadialGradient(x, y, 0, x, y, 28);
+      mainGlow.addColorStop(0, "rgba(0, 0, 255, 0.12)");
+      mainGlow.addColorStop(0.4, "rgba(0, 0, 255, 0.04)");
+      mainGlow.addColorStop(1, "rgba(0, 0, 255, 0)");
+      ctx.beginPath();
+      ctx.arc(x, y, 28, 0, Math.PI * 2);
+      ctx.fillStyle = mainGlow;
+      ctx.fill();
+
+      // Inner orb
+      const orbGradient = ctx.createRadialGradient(x, y, 0, x, y, 6);
+      orbGradient.addColorStop(0, "rgba(0, 0, 255, 0.7)");
+      orbGradient.addColorStop(0.6, "rgba(0, 0, 255, 0.3)");
+      orbGradient.addColorStop(1, "rgba(0, 0, 255, 0)");
+      ctx.beginPath();
+      ctx.arc(x, y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = orbGradient;
+      ctx.fill();
+
+      // Bright core
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(100, 100, 255, 0.9)";
+      ctx.fill();
+
+      animRef.current = requestAnimationFrame(animate);
     };
 
-    const observeInteractives = () => {
-      const els = document.querySelectorAll("a, button, [data-cursor-hover]");
-      els.forEach((el) => {
-        el.addEventListener("mouseenter", handleElementEnter);
-        el.addEventListener("mouseleave", handleElementLeave);
-      });
-    };
-
-    observeInteractives();
-    const observer = new MutationObserver(observeInteractives);
-    observer.observe(document.body, { childList: true, subtree: true });
+    animate();
 
     return () => {
+      cancelAnimationFrame(animRef.current);
       window.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseenter", handleMouseEnter);
+      window.removeEventListener("resize", resize);
       document.removeEventListener("mouseleave", handleMouseLeave);
-      observer.disconnect();
-      const els = document.querySelectorAll("a, button, [data-cursor-hover]");
-      els.forEach((el) => {
-        el.removeEventListener("mouseenter", handleElementEnter);
-        el.removeEventListener("mouseleave", handleElementLeave);
-      });
+      document.removeEventListener("mouseenter", handleMouseEnter);
     };
-  }, [cursorX, cursorY, visible, applyMagnetic]);
+  }, [visible]);
 
   if (isTouchDevice.current) return null;
 
   return (
-    <>
-      {/* Outer ring */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full mix-blend-difference flex items-center justify-center"
-        style={{
-          border: "1px solid rgba(255, 255, 255, 0.3)",
-          x,
-          y,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          width: hovering ? (label ? 80 : 48) : 32,
-          height: hovering ? (label ? 80 : 48) : 32,
-          opacity: visible ? 1 : 0,
-        }}
-        transition={{ type: "spring", damping: 20, stiffness: 300 }}
-      >
-        {/* Context label */}
-        {label && (
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.5 }}
-            style={{
-              fontFamily: "var(--font-helvetica)",
-              fontSize: "8px",
-              fontWeight: 500,
-              letterSpacing: "0.15em",
-              color: "rgba(255,255,255,0.9)",
-              textTransform: "uppercase",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {label}
-          </motion.span>
-        )}
-      </motion.div>
-      {/* Inner dot */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] rounded-full mix-blend-difference"
-        style={{
-          background: "#CECED0",
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
-        }}
-        animate={{
-          width: hovering ? 6 : 4,
-          height: hovering ? 6 : 4,
-          opacity: visible ? (label ? 0 : 1) : 0,
-        }}
-        transition={{ type: "spring", damping: 30, stiffness: 400 }}
-      />
-    </>
+    <canvas
+      ref={canvasRef}
+      className="pointer-events-none fixed inset-0"
+      style={{ zIndex: 9999 }}
+    />
   );
 }
