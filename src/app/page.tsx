@@ -472,165 +472,194 @@ export default function Home() {
             </h2>
 
             {[
+              // RECENT WORK (2024 - Now)
               {
-                year: "Currently Building",
+                year: "2025",
                 tag: "Active",
-                company: "r0am.io",
-                role: "Founder & Design Director",
-                desc: "AI startup validation platform \u2014 designed in Figma, shipped with Claude Code. Real-time market intelligence scraped from Reddit, X, and Product Hunt. Returns a full validation report in minutes. For founders who\u2019d rather know before they build.",
+                company: "LIV Nightclub",
+                role: "Creative Direction, Concept Dev, AI Asset Generation, OOH, Social Cal #1 Las Vegas Nightclub",
               },
               {
-                year: "2025 \u2014 2026",
+                year: "2025",
                 tag: "Active",
-                company: "Device Factory / LIV Las Vegas",
-                role: "Creative Director \u00b7 2026 Campaign",
-                desc: 'Built the entire 2026 artist announcement campaign for one of the most recognized nightclub brands in the world. Solo. Six weeks. Every asset AI-generated.',
-                bullets: [
-                  'Created "The Device Factory" \u2014 a fictional underground laboratory where resident DJs were positioned as inventors of experimental music technology',
-                  "12 AI-generated device renders \u00b7 full monthly flyer system \u00b7 6 environmental textures \u00b7 billboard creative",
-                  "41-frame launch video storyboard \u00b7 complete style guide built to scale without a CD in the room",
-                  "Artists: John Summit \u00b7 Dom Dolla \u00b7 Ti\u00ebsto \u00b7 Disco Lines \u00b7 David Guetta",
-                ],
+                company: "Adaptive",
+                role: "Creative Lead, Brand Architect, Designer, Strategist. Experiential Event Agency",
               },
               {
-                year: "2019 \u2014 2023",
-                company: "Sprite \u00d7 UMG",
-                role: "Design Director \u00b7 Integrated Campaign",
-                desc: "Integrated artist campaign spanning digital assets, cultural touchpoints, and global distribution. Music and commerce, made to feel like neither.",
+                year: "2025",
+                company: "Alien Water",
+                role: "Head of Creative, Packaging, Web, Brand Design. Water CPG & Media Co.",
               },
               {
-                year: "2020 \u2014 2024",
-                company: "Snapchat",
-                role: "Creative Partner \u00b7 Brand & Product",
-                desc: "Brand and product-facing creative direction for one of the defining social platforms of a generation.",
+                year: "2025",
+                company: "Kintsugi",
+                role: "Creative Director, Branding. Yoga Studio Company",
               },
               {
-                year: "2023 \u2014 Present",
-                company: "Therabody",
-                role: "Creative Direction",
-                desc: "Campaign and brand work for the global leader in percussive therapy and wellness technology.",
+                year: "2024",
+                company: "Wheelz",
+                role: "Product & Brand Design. Payment Processing App",
               },
               {
-                year: "2017 \u2014 2021",
-                company: "Grammy Recording Academy",
-                role: "Creative Consulting",
-                desc: "Brand and design consulting for the institution at the center of recorded music culture.",
+                year: "2024",
+                company: "Sprite & UMG",
+                role: "Brand & Graphic Design. Sprite's Artist Campaign",
               },
               {
-                year: "2018 \u2014 2022",
+                year: "2024",
+                company: "OPLAE",
+                role: "Product Design & Brand Design. Fan Engagement App",
+              },
+              {
+                year: "2024",
+                company: "Celia Health",
+                role: "Creative Director, Branding, Packaging, Web Design. Modernized Healthcare Products",
+              },
+              {
+                year: "2024",
+                company: "Agrippa",
+                role: "Brand & Web Design. Real Estate Investment SaaS",
+              },
+              {
+                year: "2024",
+                company: "A'muse",
+                role: "Brand, Web, Packaging. Kava Elixir CPG Product",
+              },
+              {
+                year: "2024",
+                company: "Algo",
+                role: "Brand, Web, Packaging. Longevity CPG Product",
+              },
+              {
+                year: "2024",
+                company: "Tabs",
+                role: "Brand, Packaging Design. Lifestyle CPG Products",
+              },
+              // EARLY WORK (Pre-2023)
+              {
+                year: "2020 - 2023",
                 company: "MUD\\WTR",
-                role: "Strategy & Design \u00b7 DTC",
-                desc: "Brand identity, digital presence, and packaging through the growth years of a DTC category-maker. Early. The brand was still becoming. So was the work.",
+                role: "Sr. Designer > Digital Design Dir. Coffee Alternative CPG D2C Product",
               },
               {
-                year: "2018 \u2014 2019",
+                year: "2023",
+                company: "Livegrid",
+                role: "Design Director. Talent Booking Platform & App",
+              },
+              {
+                year: "2019",
+                company: "Therabody",
+                role: "Digital Designer. Athletic Optimization Tech Products",
+              },
+              {
+                year: "2019",
+                company: "Chegg",
+                role: "UI Web Design. Online Education Platform",
+              },
+              {
+                year: "2019",
+                company: "Grammy Awards",
+                role: "UX Product Designer. Music Rewards Show",
+              },
+              {
+                year: "2018",
                 company: "Stageverse",
-                role: "Design Director \u00b7 Metaverse",
-                desc: "Visual world-building for a metaverse concert platform \u2014 years before the language existed. The intersection of spatial design, brand identity, and live music experience.",
+                role: "Lead Product Designer. VR Concert Experiences",
               },
               {
-                year: "2014 \u2014 2015",
+                year: "2017",
+                company: "Supermassive",
+                role: "Lead Product Designer. Crypto Trading & Social App",
+              },
+              {
+                year: "2017",
+                company: "Snapchat",
+                role: "Jr. Designer. Social App",
+              },
+              {
+                year: "2019",
+                company: "Unitea",
+                role: "Director of Product Design. Music Rewards App",
+              },
+              {
+                year: "2017",
+                company: "Joox",
+                role: "Lead Product Designer. Music Rewards App",
+              },
+              {
+                year: "2016",
+                company: "PPL",
+                role: "Design Intern. Social App Startup",
+              },
+              {
+                year: "2016",
                 company: "Ultra Records",
-                role: "A&R Intern",
-                desc: "Taste-making at one of electronic music\u2019s most culturally relevant labels. Home to Deadmau5, Calvin Harris, a generation of artists who shaped festival culture. The training ground.",
+                role: "A&R Intern. Record Label",
               },
             ].map((exp, i) => (
-              <ScrollReveal key={i} delay={Math.min(i * 0.05, 0.3)}>
+              <ScrollReveal key={i} delay={Math.min(i * 0.03, 0.2)}>
                 <div
                   style={{
                     display: "grid",
-                    gridTemplateColumns: "200px 1fr",
-                    gap: 40,
-                    padding: "40px 0",
-                    borderBottom:
-                      i < 8 ? "1px solid #E0E0E0" : "none",
+                    gridTemplateColumns: "80px 1fr",
+                    gap: 16,
+                    padding: "16px 0",
+                    borderBottom: "1px solid #E0E0E0",
+                    alignItems: "baseline",
                   }}
-                  className="max-sm:!grid-cols-1 max-sm:!gap-3"
+                  className="max-sm:!grid-cols-1 max-sm:!gap-1"
                 >
-                  <div>
-                    <div
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span
                       style={{
-                        fontSize: 12,
-                        letterSpacing: "0.08em",
-                        color: "#5a5a5a",
+                        fontSize: 11,
+                        fontWeight: 500,
+                        letterSpacing: "0.04em",
+                        color: "#CECED0",
                         textTransform: "uppercase",
-                        paddingTop: 6,
                       }}
                     >
                       {exp.year}
-                    </div>
+                    </span>
                     {exp.tag && (
-                      <div
+                      <span
                         style={{
-                          display: "inline-block",
-                          marginTop: 10,
-                          fontSize: 9,
+                          fontSize: 8,
                           fontWeight: 700,
-                          letterSpacing: "0.12em",
+                          letterSpacing: "0.1em",
                           textTransform: "uppercase",
-                          padding: "4px 10px",
+                          padding: "2px 6px",
                           border: "1px solid #1a8a1a",
                           color: "#1a8a1a",
                         }}
                       >
                         {exp.tag}
-                      </div>
+                      </span>
                     )}
                   </div>
-                  <div>
-                    <div
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
+                    <span
                       style={{
                         fontWeight: 900,
-                        fontSize: "clamp(28px, 3vw, 42px)",
-                        letterSpacing: "-0.03em",
+                        fontSize: "clamp(16px, 2vw, 22px)",
+                        letterSpacing: "-0.02em",
                         textTransform: "uppercase",
                         lineHeight: 1,
-                        marginBottom: 6,
                       }}
                     >
                       {exp.company}
-                    </div>
-                    <div
+                    </span>
+                    <span
                       style={{
-                        fontWeight: 700,
+                        fontWeight: 500,
                         fontSize: 11,
-                        letterSpacing: "0.1em",
+                        letterSpacing: "0.04em",
                         textTransform: "uppercase",
-                        color: "#888888",
-                        marginBottom: 16,
+                        color: "#5a5a5a",
                       }}
                     >
                       {exp.role}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 13,
-                        color: "#5a5a5a",
-                        lineHeight: 1.8,
-                        marginBottom: 16,
-                        maxWidth: 700,
-                      }}
-                    >
-                      {exp.desc}
-                    </div>
-                    {exp.bullets && (
-                      <ul
-                        style={{
-                          listStyle: "none",
-                          fontSize: 12,
-                          color: "#777",
-                          lineHeight: 2,
-                          padding: 0,
-                        }}
-                      >
-                        {exp.bullets.map((b, bi) => (
-                          <li key={bi}>
-                            <span style={{ color: "#888888" }}>&mdash; </span>
-                            {b}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    </span>
                   </div>
                 </div>
               </ScrollReveal>

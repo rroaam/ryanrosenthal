@@ -3,13 +3,13 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-// ─── Colors (dark theme) ────────────────────────────────────────────
+// ─── Colors (light theme) ───────────────────────────────────────────
 
-const BG = "#211F1F";
-const FG = "#CECED0";
-const FG_MUTED = "rgba(206,206,208,0.35)";
-const FG_DIM = "rgba(206,206,208,0.15)";
-const ACCENT = "#E5000A";
+const BG = "#F4F3F1";
+const FG = "#0A0A0A";
+const FG_MUTED = "rgba(10,10,10,0.4)";
+const FG_DIM = "rgba(10,10,10,0.12)";
+const ACCENT = "#0000FF";
 
 // ─── Types ──────────────────────────────────────────────────────────
 
@@ -394,7 +394,7 @@ function TimeSlots({
             >
               <span
                 className="text-[12px] sm:text-[13px] font-medium tracking-[0.06em]"
-                style={{ color: isSelected ? "#E6E6E6" : FG }}
+                style={{ color: isSelected ? "#F4F3F1" : FG }}
               >
                 {time}
               </span>
@@ -504,7 +504,7 @@ function BookingForm({
         >
           <span
             className="text-[11px] sm:text-[12px] font-medium tracking-[0.18em] uppercase"
-            style={{ color: "#E6E6E6" }}
+            style={{ color: "#F4F3F1" }}
           >
             {submitting ? "Booking..." : "Confirm Booking \u2192"}
           </span>
