@@ -132,12 +132,13 @@ export default function ResumePrintPage() {
               maxWidth: "6.5in",
             }}
           >
-            Creative director and founder with 10+ years leading brand, product,
-            and campaign work across music, tech, wellness, and entertainment.
-            Psychology-trained perspective on human behavior applied to creative
-            strategy. Now building AI-native tools and workflows. Designing in
-            Figma, shipping with Claude Code, deploying to production. 50+
-            clients. Multiple products in market.
+            Creative director and founder with 10+ years building campaigns, brands,
+            and products across music, tech, wellness, and entertainment. Full-spectrum
+            marketing: brand identity, product design, content creation, creative
+            campaigns, ads, email, retention, and go-to-market strategy.
+            Psychology-trained perspective on what actually moves people. Now shipping
+            AI-native tools and workflows with Claude Code. 50+ clients. Multiple
+            products in market.
           </div>
 
           {/* TWO COLUMNS */}

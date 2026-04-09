@@ -276,11 +276,7 @@ export default function Home() {
                 maxWidth: 1000,
               }}
             >
-              Born in 1994 in Los Angeles. Studied psychology — the science of why
-              people do what they do. Carried that lens through music labels,
-              metaverse platforms, wellness companies, entertainment institutions,
-              and a decade of brand and product work. Now building AI-native
-              creative at the intersection of culture and technology.
+              10+ years building campaigns, brands, and products across music, tech, wellness, and entertainment. Full-spectrum marketing: brand identity, product design, content creation, creative campaigns, ads, email, retention, and go-to-market strategy. Psychology-trained perspective on what actually moves people. Now shipping AI-native tools and workflows with Claude Code. 50+ clients. Multiple products in market.
             </div>
             <div
               style={{
