@@ -141,6 +141,44 @@ export default function ResumePrintPage() {
             products in market.
           </div>
 
+          {/* TOP SKILLS */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 5,
+              marginBottom: 12,
+            }}
+          >
+            {[
+              "Creative Direction",
+              "Brand Identity",
+              "Product Design",
+              "AI-Native Workflows",
+              "Claude Code Shipping",
+              "Campaign Production",
+              "Go-to-Market",
+              "Founder Operator",
+            ].map((tag) => (
+              <span
+                key={tag}
+                style={{
+                  fontWeight: 700,
+                  fontSize: 7,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#0A0A0A",
+                  border: "0.5px solid #0A0A0A",
+                  borderRadius: 100,
+                  padding: "3px 9px",
+                  lineHeight: 1,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
           {/* TWO COLUMNS */}
           <div
             style={{
@@ -174,7 +212,7 @@ export default function ResumePrintPage() {
                   { dates: "2020 - 2023", company: "MUD\\WTR", role: "Sr. Designer to Digital Design Director" },
                   { dates: "2023", company: "Livegrid", role: "Design Director \u00b7 Talent Booking Platform" },
                   { dates: "2019 - Present", company: "Therabody", role: "Digital Designer \u00b7 Athletic Optimization" },
-                  { dates: "2019", company: "Grammy Awards", role: "UX Product Designer \u00b7 Music Rewards" },
+                  { dates: "2019", company: "Grammy Recording Academy", role: "UX Product Designer \u00b7 Music Industry App" },
                   { dates: "2018", company: "Stageverse", role: "Lead Product Designer \u00b7 VR Concerts" },
                   { dates: "2017", company: "Snapchat", role: "Jr. Designer \u00b7 Social App" },
                   { dates: "2016", company: "Ultra Records", role: "A&R Intern \u00b7 Record Label" },

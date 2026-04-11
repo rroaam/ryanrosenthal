@@ -148,6 +148,25 @@ export default function Home() {
           padding: "clamp(70px, 12vw, 100px) clamp(20px, 4vw, 40px) 60px",
         }}
       >
+        {/* Logo Sizzle Video — top right of hero */}
+        <motion.video
+          {...fadeUp(0.2)}
+          src="/media/rr-logo-sizzle.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          style={{
+            position: "absolute",
+            top: "clamp(80px, 10vw, 120px)",
+            right: "clamp(20px, 4vw, 40px)",
+            width: "clamp(180px, 22vw, 320px)",
+            height: "auto",
+            borderRadius: 8,
+            pointerEvents: "none",
+          }}
+        />
+
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 700 }}>
           <motion.div
             {...fadeUp(0.1)}
@@ -208,6 +227,31 @@ export default function Home() {
             }}
           >
             10 years / 50+ clients / AI-native
+          </motion.div>
+
+          {/* Small circular headshot */}
+          <motion.div
+            {...fadeUp(0.45)}
+            style={{
+              marginTop: 24,
+              width: 72,
+              height: 72,
+              borderRadius: "50%",
+              overflow: "hidden",
+              border: "1px solid #E0E0E0",
+              backgroundColor: "#0A0A0A",
+            }}
+          >
+            <img
+              src="/media/rr-headshot.png"
+              alt="Ryan Rosenthal"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
           </motion.div>
 
           <motion.div {...fadeUp(0.5)} style={{ marginTop: 48 }}>
@@ -278,6 +322,46 @@ export default function Home() {
             >
               10+ years building campaigns, brands, and products across music, tech, wellness, and entertainment. Full-spectrum marketing: brand identity, product design, content creation, creative campaigns, ads, email, retention, and go-to-market strategy. Psychology-trained perspective on what actually moves people. Now shipping AI-native tools and workflows with Claude Code. 50+ clients. Multiple products in market.
             </div>
+
+            {/* TOP SKILLS TAG STRIP */}
+            <div
+              style={{
+                marginTop: 28,
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 8,
+              }}
+            >
+              {[
+                "Creative Direction",
+                "Brand Identity",
+                "Product Design",
+                "AI-Native Workflows",
+                "Claude Code Shipping",
+                "Campaign Production",
+                "Go-to-Market",
+                "Founder Operator",
+              ].map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    fontFamily: "var(--font-helvetica)",
+                    fontWeight: 700,
+                    fontSize: 11,
+                    letterSpacing: "0.08em",
+                    textTransform: "uppercase",
+                    color: "#0A0A0A",
+                    border: "1px solid #0A0A0A",
+                    borderRadius: 999,
+                    padding: "5px 12px",
+                    lineHeight: 1,
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
             <div
               style={{
                 marginTop: 32,
@@ -472,8 +556,8 @@ export default function Home() {
               {
                 year: "2025",
                 tag: "Active",
-                company: "LIV Nightclub",
-                role: "Creative Direction, Concept Dev, AI Asset Generation, OOH, Social Cal #1 Las Vegas Nightclub",
+                company: "LIV Las Vegas",
+                role: "Creative Direction, Concept Dev, AI Asset Generation, OOH. Solo-led 2026 artist announcement campaign: 41-frame storyboard, flyer system, billboard creative, built in 6 weeks.",
               },
               {
                 year: "2025",
@@ -554,8 +638,8 @@ export default function Home() {
               },
               {
                 year: "2019",
-                company: "Grammy Awards",
-                role: "UX Product Designer. Music Rewards Show",
+                company: "Grammy Recording Academy",
+                role: "UX Product Designer. Music Industry App",
               },
               {
                 year: "2018",

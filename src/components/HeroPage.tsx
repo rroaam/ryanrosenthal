@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import CustomCursor from "./CustomCursor";
 import FilmGrain from "./FilmGrain";
 import Preloader from "./Preloader";
 import BookingContent from "./BookingContent";
@@ -274,7 +273,6 @@ export default function HeroPage() {
 
   return (
     <>
-      <CustomCursor />
       <FilmGrain opacity={0.035} />
       {showPreloader && <Preloader onComplete={handlePreloaderComplete} />}
 

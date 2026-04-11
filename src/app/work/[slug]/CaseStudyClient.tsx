@@ -4,7 +4,6 @@ import type { Project } from "@/data/projects";
 import SiteNav from "@/components/SiteNav";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
-import CustomCursor from "@/components/CustomCursor";
 import FilmGrain from "@/components/FilmGrain";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,7 +44,6 @@ export default function CaseStudyClient({
       }}
     >
       <SiteNav />
-      <CustomCursor />
       <FilmGrain opacity={0.025} />
 
       {/* Hero Section */}
