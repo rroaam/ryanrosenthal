@@ -214,10 +214,11 @@ export default function ResumePrintPage() {
                   { dates: "2019 - Present", company: "Therabody", role: "Digital Designer \u00b7 Athletic Optimization" },
                   { dates: "2019", company: "Grammy Recording Academy", role: "UX Product Designer \u00b7 Music Industry App" },
                   { dates: "2018", company: "Stageverse", role: "Lead Product Designer \u00b7 VR Concerts" },
+                  { dates: "2018", company: "Supermassive", role: "Lead Product Designer \u00b7 250-screen crypto trading & community app. Early Web3." },
                   { dates: "2017", company: "Snapchat", role: "Jr. Designer \u00b7 Social App" },
                   { dates: "2016", company: "Ultra Records", role: "A&R Intern \u00b7 Record Label" },
                 ].map((exp, i) => (
-                  <div key={i} style={expRowStyle(i === 11)}>
+                  <div key={i} style={expRowStyle(i === 12)}>
                     <div>
                       <div style={expDatesStyle}>{exp.dates}</div>
                       {exp.active && (

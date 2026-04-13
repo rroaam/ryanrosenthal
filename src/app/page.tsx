@@ -647,9 +647,9 @@ export default function Home() {
                 role: "Lead Product Designer. VR Concert Experiences",
               },
               {
-                year: "2017",
+                year: "2018",
                 company: "Supermassive",
-                role: "Lead Product Designer. Crypto Trading & Social App",
+                role: "Lead Product Designer. 250-screen crypto trading & community mobile app. Early Web3, pre-hype cycle.",
               },
               {
                 year: "2017",

@@ -28,21 +28,6 @@ export default function SiteNav() {
         height: "52px",
       }}
     >
-      <Link
-        href="/"
-        style={{
-          fontFamily: "var(--font-helvetica)",
-          fontWeight: 900,
-          fontSize: "13px",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase" as const,
-          color: "#0A0A0A",
-          textDecoration: "none",
-        }}
-      >
-        RR
-      </Link>
-
       <div className="flex items-center gap-6 max-sm:gap-3">
         {navLinks.map((link, i) => (
           <Link
@@ -65,6 +50,20 @@ export default function SiteNav() {
           </Link>
         ))}
       </div>
+
+      <Link
+        href="/"
+        style={{
+          fontFamily: "var(--font-helvetica)",
+          fontWeight: 900,
+          fontSize: "13px",
+          letterSpacing: "0.02em",
+          color: "#0A0A0A",
+          textDecoration: "none",
+        }}
+      >
+        ryanrosenthal.com
+      </Link>
     </motion.nav>
   );
 }
